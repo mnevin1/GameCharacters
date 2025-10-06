@@ -53,6 +53,7 @@ do
         if (UInt64.TryParse(Console.ReadLine(), out UInt64 Id))
         {
             logger.Info($"Character Id {Id} entered");
+            Mario? character = marios.First(c => c.Id == Id);
         }
         else
         {
