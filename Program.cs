@@ -60,7 +60,9 @@ do
             }
             else
             {
-                logger.Info($"Character Id {Id} found");
+                marios.Remove(character);
+                File.WriteAllText(marioFileName, JsonSerializer.Serialize(marios));
+                logger.Info($"Character Id {Id} removed");
             }
         }
         else
