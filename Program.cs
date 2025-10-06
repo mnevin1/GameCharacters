@@ -24,36 +24,49 @@ do
   string? choice = Console.ReadLine();
   logger.Info("User choice: {Choice}", choice);
 
-  if (choice == "1")
-  {
-    // Display Mario Characters
-    foreach(var c in marios)
+    if (choice == "1")
     {
-      Console.WriteLine(c.Display());
+        // Display Mario Characters
+        foreach (var c in marios)
+        {
+            Console.WriteLine(c.Display());
+        }
     }
-  }
-  else if (choice == "2")
-  {
-    // Add Mario Character
-    // Generate unique Id
-    Mario mario = new()
+    else if (choice == "2")
     {
-      Id = marios.Count == 0 ? 1 : marios.Max(c => c.Id) + 1
-    };
-    InputCharacter(mario);
-    // Add Character
-    marios.Add(mario);
-    File.WriteAllText(marioFileName, JsonSerializer.Serialize(marios));
-    logger.Info($"Character added: {mario.Name}");
+        // Add Mario Character
+        // Generate unique Id
+        Mario mario = new()
+        {
+            Id = marios.Count == 0 ? 1 : marios.Max(c => c.Id) + 1
+        };
+        InputCharacter(mario);
+        // Add Character
+        marios.Add(mario);
+        File.WriteAllText(marioFileName, JsonSerializer.Serialize(marios));
+        logger.Info($"Character added: {mario.Name}");
+    }
+    else if (choice == "3")
+    {
+        // Remove Mario Character
+        Console.WriteLine("Enter Id of character to remove:");
+        if (UInt64.TryParse(Console.ReadLine(), out UInt64 Id))
+        {
+            logger.Info($"Character Id {Id} entered");
+        }
+        else
+        {
+            logger.Error("Invalid Id");
+        }
   }
-  else if (choice == "3")
-  {
-    // Remove Mario Character
-  } else if (string.IsNullOrEmpty(choice)) {
-    break;
-  } else {
-    logger.Info("Invalid choice");
-  }
+    else if (string.IsNullOrEmpty(choice))
+    {
+        break;
+    }
+    else
+    {
+        logger.Info("Invalid choice");
+    }
 } while (true);
 
 logger.Info("Program ended");
