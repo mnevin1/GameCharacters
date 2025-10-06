@@ -4,6 +4,6 @@ public class Mario : Character
 
     public override string Display()
     {
-        return $"ID: {Id}\nName: {Name}\nDescription: {Description}\nAlias: {string.Join(", ", Alias)}\n";
+        return $"Id: {Id}\nName: {Name}\nDescription: {Description}\nAlias: {string.Join(", ", Alias)}\n";
     }
 }
