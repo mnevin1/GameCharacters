@@ -13,36 +13,41 @@ List<Mario> marios = JsonSerializer.Deserialize<List<Mario>>(File.ReadAllText(ma
 
 do
 {
-  // display choices to user
   Console.WriteLine("1) Display Mario Characters");
   Console.WriteLine("2) Add Mario Character");
   Console.WriteLine("3) Remove Mario Character");
   Console.WriteLine("Enter to quit");
 
-  // input selection
   string? choice = Console.ReadLine();
   logger.Info("User choice: {Choice}", choice);
 
-  if (choice == "1")
-  {
-    // Display Mario Characters
-    foreach (var c in marios)
+    if (choice == "1")
     {
-      Console.WriteLine(c.Display());
+        foreach (var c in marios)
+        {
+            Console.WriteLine(c.Display());
+        }
     }
+    else if (choice == "2")
+    {
+        Mario mario = new()
+        {
+            Id = marios.Count == 0 ? 1 : marios.Max(c => c.Id) + 1
+        };
+
   }
-  else if (choice == "2")
-  { 
-    // Add Mario Character
-  }
-  else if (choice == "3")
-  {
-    // Remove Mario Character
-  } else if (string.IsNullOrEmpty(choice)) {
-    break;
-  } else {
-    logger.Info("Invalid choice");
-  }
+    else if (choice == "3")
+    {
+        // Remove Mario Character
+    }
+    else if (string.IsNullOrEmpty(choice))
+    {
+        break;
+    }
+    else
+    {
+        logger.Info("Invalid choice");
+    }
 } while (true);
 
 logger.Info("Program ended");
