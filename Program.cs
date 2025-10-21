@@ -226,6 +226,7 @@ do
   Console.WriteLine("1) Display Street Fighter 2 Characters");
   Console.WriteLine("2) Add Street Fighter 2 Character");
   Console.WriteLine("3) Remove Street Fighter 2 Character");
+  Console.WriteLine("4) Edit Street Fighter 2 Character");
   Console.WriteLine("Enter to quit");
 
   // input selection
@@ -271,6 +272,31 @@ do
         sf2s.Remove(character);
         File.WriteAllText(sf2FileName, JsonSerializer.Serialize(sf2s));
         logger.Info($"Character Id {Id} removed");
+      }
+    }
+    else
+    {
+      logger.Error("Invalid Id");
+    }
+  }
+    else if (choice == "4")
+  {
+    // Edit Street Fighter 2 Character
+    Console.WriteLine("Enter Id of character to edit:");
+    if (UInt64.TryParse(Console.ReadLine(), out UInt64 Id))
+    {
+      logger.Info($"Character Id {Id} entered for editing");
+      int index = sf2s.FindIndex(c => c.Id == Id);
+      if (index < 0)
+      {
+        logger.Error($"Character Id {Id} not found");
+      }
+      else
+      {
+        Console.WriteLine($"Editing character: {sf2s[index].Name}");
+        InputCharacter(sf2s[index]);
+        File.WriteAllText(sf2FileName, JsonSerializer.Serialize(sf2s));
+        logger.Info($"Character Id {Id} updated");
       }
     }
     else
