@@ -177,6 +177,31 @@ do
       logger.Error("Invalid Id");
     }
   }
+    else if (choice == "4")
+  {
+    // Edit Donkey Kong Character
+    Console.WriteLine("Enter Id of character to edit:");
+    if (UInt64.TryParse(Console.ReadLine(), out UInt64 Id))
+    {
+      logger.Info($"Character Id {Id} entered for editing");
+      int index = dks.FindIndex(c => c.Id == Id);
+      if (index < 0)
+      {
+        logger.Error($"Character Id {Id} not found");
+      }
+      else
+      {
+        Console.WriteLine($"Editing character: {dks[index].Name}");
+        InputCharacter(dks[index]);
+        File.WriteAllText(dkFileName, JsonSerializer.Serialize(dks));
+        logger.Info($"Character Id {Id} updated");
+      }
+    }
+    else
+    {
+      logger.Error("Invalid Id");
+    }
+  }
   else if (string.IsNullOrEmpty(choice))
   {
     break;
