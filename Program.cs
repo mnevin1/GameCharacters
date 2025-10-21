@@ -22,6 +22,7 @@ do
   Console.WriteLine("1) Display Mario Characters");
   Console.WriteLine("2) Add Mario Character");
   Console.WriteLine("3) Remove Mario Character");
+  Console.WriteLine("4) Edit Mario Character");
   Console.WriteLine("Enter to quit");
 
   // input selection
@@ -67,6 +68,31 @@ do
         marios.Remove(character);
         File.WriteAllText(marioFileName, JsonSerializer.Serialize(marios));
         logger.Info($"Character Id {Id} removed");
+      }
+    }
+    else
+    {
+      logger.Error("Invalid Id");
+    }
+  }
+    else if (choice == "4")
+  {
+    // Edit Mario Character
+    Console.WriteLine("Enter Id of character to edit:");
+    if (UInt64.TryParse(Console.ReadLine(), out UInt64 Id))
+    {
+      logger.Info($"Character Id {Id} entered for editing");
+      int index = marios.FindIndex(c => c.Id == Id);
+      if (index < 0)
+      {
+        logger.Error($"Character Id {Id} not found");
+      }
+      else
+      {
+        Console.WriteLine($"Editing character: {marios[index].Name}");
+        InputCharacter(marios[index]);
+        File.WriteAllText(marioFileName, JsonSerializer.Serialize(marios));
+        logger.Info($"Character Id {Id} updated");
       }
     }
     else
